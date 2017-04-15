@@ -1,2 +1,2 @@
 # TODO
-Simple todo app in python, just to practice.
+Simple TODO terminal app in python, just to practice python.

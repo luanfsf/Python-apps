@@ -2,34 +2,34 @@
 # encoding: utf-8
 
 def main():
-    ''' Pseudocodigo
-
-        iniciar e ler a lista principal
-        
-        exibir status 0 a 100
-        exibir a lista principal
-        exibir menu de acoes
-    '''
-    TODOS = lista
-    
-    while True:
-        header    (TODOS)
-        showTasks (TODOS)
-        endPrompt (TODOS)
-    
+#    ''' Pseudocodigo
+#
+#        iniciar e ler a lista principal
+#        
+#        exibir status 0 a 100
+#        exibir a lista principal
+#        exibir menu de acoes
+#    '''
+#    TODOS = lista
+#    
+#    while True:
+#        header    (TODOS)
+#        showTasks (TODOS)
+#        endPrompt (TODOS)
+#    
     
     class lista:
-        
-        def __init__(self):
-            self.lista = self.readDB()
-            self.size = self.len(self.lista)
             
         def readDB(self):
             todos = []
             with open('todos.db') as db:
                 for line in db:
-                    todos.append(line.strip().split(';'))
+                    todos.append(line.strip().split(','))
             return todos
+        
+        def __init__(self):
+            self.lista = self.readDB()
+            #self.size = self.len(self.lista)
     
         def printDB(self):
             for i in range(len(self.lista)): # Para ver itens por linha e len()
@@ -39,17 +39,25 @@ def main():
                 print("")
     
         def saveDB(self):
+            
+            outF = open("todos2.db", "w")
+            for line in self.lista:
+                #outF.write(str(line)+"")
+                outF.write(str(line).replace("[","").replace("]", "").replace(" '", "").replace("'", ""))
+                outF.write("\n")
+            outF.close()
             # salvar cada elemento da lista no arquivo
-            pass
-        def addTask(self):
-            # Adicionar elemento na lista desde que não ultrapasse o limite de 100, exibir mensagem
-            pass
-        def editTask(self):
-            self.list.append()
-            pass
-        def removeTask(self):
-            pass
-        
+#        def addTask(self):
+#            # Adicionar elemento na lista desde que não ultrapasse o limite de 100, exibir mensagem
+#            pass
+#        def editTask(self):
+#            #self.list.append()
+#            pass
+#        def removeTask(self):
+#            pass
+    a=lista()
+    a.saveDB()
+    
     def header():
         print("┌──────────┬─────────────────────────────────────────────────┬───────┐")
         print("│  TODOs   │                                                 │ 1/100 │")
@@ -58,7 +66,7 @@ def main():
     def showTasks(TODO):
         # UNIX  (  ┘ └ ┐ ┌ ┼ ─ ├ ┤ ┴ ┬ │ )
         # DOS   (  ┘ └ ┐ ┌ ┼ ─ ├ ┤ ┴ ┬ │ )
-        pass
+        
         # DOS 2 (  ╝ ╚ ╗ ╔ ╬ ═ ╠ ╣ ╩ ╦ ║ )
         ''' ╔════╗
             ║oi╔═╬══╦══╗
@@ -73,14 +81,14 @@ def main():
         print("│ 003 │ Comprar tal coisa                                            │")
         print("├─────┴──────────────────────────────────────────────────────────────┤")
     
-    def endPrompt(): # end of line menu
-        print("├────────────────────────────────────────────────────────────────────┤")
-        print("│  1 Nova tarefa  |  2 Editar tarefa |  3 Excluir tarefa  |  4 Sair  │")
-        print("└────────────────────────────────────────────────────────────────────┘")
-        
-        opc = 0
-        while( opc != 4):
-            return True
+#    def endPrompt(): # end of line menu
+#        print("├────────────────────────────────────────────────────────────────────┤")
+#        print("│  1 Nova tarefa  |  2 Editar tarefa |  3 Excluir tarefa  |  4 Sair  │")
+#        print("└────────────────────────────────────────────────────────────────────┘")
+#        
+#        opc = 0
+#        while( opc != 4):
+#            return True
 
     #-------------------------CORES
     BLACK       = "\u001B[30m"
@@ -106,8 +114,8 @@ def main():
     RESET       = "\u001B[0m"
     #--------------------------
     
-    def sort(): # fazer mais tarde, nao alterar a lista original
-        pass
+#    def sort(): # fazer mais tarde, nao alterar a lista original
+#        pass
     
 if __name__ == '__main__':
 	main()

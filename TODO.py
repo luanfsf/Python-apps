@@ -10,7 +10,6 @@ def main():
         showTasks(Todos)
         endPrompt (Todos)
     
-    
     ''' Pseudocodigo
 
         iniciar e ler a lista principal
@@ -21,41 +20,48 @@ def main():
     '''
     #---------------------MAIN
 class lista:
+    ''' Classe lista irá conter uma lista e métodos básicos para sua manipulação
+    '''
     
     def __init__(self):
         self.lista = self.readDB()
-        #self.size = self.len(self.lista)
         
     def readDB(self):
+        ''' Lê o arquivo todos.db e separa cada linha como uma tarefa
+            cada linha contém uma tarefa e uma prioridade, o separador é "**"    '''
         todos = []
-        with open('todos.db') as db:
+        with open("todos.db", "r") as db:
             for line in db:
-                todos.append(line.strip().split('**'))
+                todos.append(line.strip().split("**"))
         return todos
-    def printDB(self):
-        for i in range(len(self.lista)): # Para ver itens por linha e len()
-            for j in range(len(self.lista[i])):
-                print(self.lista[i][j] , end=",") # [i][j]
-                print('len = '+ str( len(self.lista[i][j]) ), end="/")
-            print("")
-    def saveDB(self):
+        
+    def saveDB(self): 
+        ''' Salva a lista completa no arquivo todos.db, cada linha contendo uma tarefa e
+            sua prioridade, separadas por "**". E deverá ser chamado sempre após uma alteração    '''
         outF = open("todos2.db", "w")
         for line in self.lista:
-            #outF.write(str(line)+"")
-            #outF.write(str(line)[::-1].replace("[","").replace("]", "").replace(" '", "*").replace("'", "").replace(",","*",1)[::-1])
             outF.write("**".join(map(str, line)))                
             outF.write("\n")
         outF.close()
      
-        #salvar cada elemento da lista no arquivo
     def addTask(self):
-        # Adicionar elemento na lista desde que não ultrapasse o limite de 100, exibir mensagem
+        ''' Adicionar elemento na lista desde que não ultrapasse o limite de 100, somente
+            para manter uma formatação correta. Exibir mensagem (Não é possível adicionar
+            mais tarefas, remova algumas tarefas para continuar), caso len(Todos.lista) > 100'''
         pass
     def editTask(self):
         #self.list.append()
         pass
     def removeTask(self):
         pass
+        
+    def printDB(self): # Método somente para testes, ver itens por linha e len()
+        for i in range(len(self.lista)): 
+            for j in range(len(self.lista[i])):
+                print(self.lista[i][j] , end=",") 
+                print('len = '+ str( len(self.lista[i][j]) ), end="/")
+            print("")
+        return
 
 # para testes
 a=lista()
@@ -96,26 +102,39 @@ def endPrompt(todos): # end of line menu
 def sort(): # fazer mais tarde, nao alterar a lista original
     pass
 
-#-------------------------CORES
-BLACK       = "\u001B[30m"
-RED         = "\u001B[31m"
-GREEN       = "\u001B[32m"
-YELLOW      = "\u001B[33m"
-BLUE        = "\u001B[34m"
-MAGENTA     = "\u001B[35m"
-CYAN        = "\u001B[36m"
-#------------------------FUNDOS    
-BCK_BLACK   = "\u001B[40m"
-BCK_RED     = "\u001B[41m"
-BCK_GREEN   = "\u001B[42m"
-BCK_YELLOW  = "\u001B[43m"
-BCK_BLUE    = "\u001B[44m"
-BCK_MAGENTA = "\u001B[45m"
-BCK_CYAN    = "\u001B[46m"
-BCK_DEFAULT = "\u001B[49m"
-#------------------------OUTROS
-BOLD        = "\u001B[1m"
-RESET       = "\u001B[0m"
+
+def COL(opc): 
+    ''' COL( opc ), retorna string com padrão ANSI para formatação
+    opc = string -> ["BLACK", "RED", "GREEN", "YELLOW","BLUE", "MAGENTA", "CYAN" ]
+    '''
+    cores = {
+    "BLACK"   : "\u001B[30m",
+    "RED"     : "\u001B[31m",
+    "GREEN"   : "\u001B[32m",
+    "YELLOW"  : "\u001B[33m",
+    "BLUE"    : "\u001B[34m",
+    "MAGENTA" : "\u001B[35m",
+    "CYAN"    : "\u001B[36m"
+    }
+    return cores[opc]
+
+def BCK(opc):
+    ''' BCK( opc ), retorna string com padrão ANSI para formatação
+    opc = string -> ["BLACK", "RED", "GREEN", "YELLOW","BLUE", "MAGENTA", "CYAN" ]
+    '''
+    fundos = {
+    "BLACK"   : "\u001B[40m",
+    "RED"     : "\u001B[41m",
+    "GREEN"   : "\u001B[42m",
+    "YELLOW"  : "\u001B[43m",
+    "BLUE"    : "\u001B[44m",
+    "MAGENTA" : "\u001B[45m",
+    "CYAN"    : "\u001B[46m"
+    }
+    return fundos[opc]
+
+def BLD(): return "\u001B[1m"
+def RST(): return "\u001B[0m"
 #--------------------------
     
 if __name__ == '__main__':

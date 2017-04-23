@@ -47,12 +47,18 @@ class lista:
     def addTask(self):
         ''' Adicionar elemento na lista desde que não ultrapasse o limite de 100, somente
             para manter uma formatação correta. Exibir mensagem (Não é possível adicionar
-            mais tarefas, remova algumas tarefas para continuar), caso len(Todos.lista) > 100'''
+            mais tarefas, remova algumas tarefas para continuar), caso len(self.lista) > 100'''
         pass
     def editTask(self):
-        #self.list.append()
+        ''' Pede o indice do item da lista que deseja alterar, range(0, len(self.list))
+            Exibe o item e pede para inserir novo texto e prioridade, caso
+            o campo esteja em branco, não alterar e logo pedir a prioridade 
+        '''
         pass
     def removeTask(self):
+        ''' Pede o indice do item que deseja remover, range(0, len(self.list))
+            Exibe o item e pergunta se deseja mesmo excluir
+        '''
         pass
         
     def printDB(self): # Método somente para testes, ver itens por linha e len()

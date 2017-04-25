@@ -47,6 +47,14 @@ class lista:
         ''' Adicionar elemento na lista desde que não ultrapasse o limite de 100, somente
             para manter uma formatação correta. Exibir mensagem (Não é possível adicionar
             mais tarefas, remova algumas tarefas para continuar), caso len(self.lista) > 100'''
+        self.line.append( [ Wrapper(), Priority()] )
+
+        def Wrapper(max):
+            ''' Input de no máximo mx characteres para adicionar a lista '''
+            return task
+        def Priority():
+            ''' Input inteiro [1,2,3] para definir a prioridade das tarefas '''
+            return priority
         pass
     def editTask(self):
         ''' Pede o indice do item da lista que deseja alterar, range(0, len(self.list))

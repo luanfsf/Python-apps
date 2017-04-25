@@ -2,30 +2,29 @@
 # encoding: utf-8
 
 def main():
-    #---------------------MAIN
+    ''' Pseudocodigo
+
+    iniciar e ler a lista principal
+
+    exibir status 0 a 100
+    exibir a lista principal
+    exibir menu de acoes
+    '''
+
     Todos = lista()
-    
+
     while True:
         header(Todos)
         showTasks(Todos)
         endPrompt (Todos)
-    
-    ''' Pseudocodigo
 
-        iniciar e ler a lista principal
-        
-        exibir status 0 a 100
-        exibir a lista principal
-        exibir menu de acoes
-    '''
-    #---------------------MAIN
 class lista:
     ''' Classe lista irá conter uma lista e métodos básicos para sua manipulação
     '''
-    
+
     def __init__(self):
         self.lista = self.readDB()
-        
+
     def readDB(self):
         ''' Lê o arquivo todos.db e separa cada linha como uma tarefa
             cada linha contém uma tarefa e uma prioridade, o separador é "**"    '''
@@ -34,16 +33,16 @@ class lista:
             for line in db:
                 todos.append(line.strip().split("**"))
         return todos
-        
-    def saveDB(self): 
+
+    def saveDB(self):
         ''' Salva a lista completa no arquivo todos.db, cada linha contendo uma tarefa e
             sua prioridade, separadas por "**". E deverá ser chamado sempre após uma alteração    '''
         outF = open("todos2.db", "w")
         for line in self.lista:
-            outF.write("**".join(map(str, line)))                
+            outF.write("**".join(map(str, line)))
             outF.write("\n")
         outF.close()
-     
+
     def addTask(self):
         ''' Adicionar elemento na lista desde que não ultrapasse o limite de 100, somente
             para manter uma formatação correta. Exibir mensagem (Não é possível adicionar
@@ -52,7 +51,7 @@ class lista:
     def editTask(self):
         ''' Pede o indice do item da lista que deseja alterar, range(0, len(self.list))
             Exibe o item e pede para inserir novo texto e prioridade, caso
-            o campo esteja em branco, não alterar e logo pedir a prioridade 
+            o campo esteja em branco, não alterar e logo pedir a prioridade
         '''
         pass
     def removeTask(self):
@@ -60,11 +59,11 @@ class lista:
             Exibe o item e pergunta se deseja mesmo excluir
         '''
         pass
-        
+
     def printDB(self): # Método somente para testes, ver itens por linha e len()
-        for i in range(len(self.lista)): 
+        for i in range(len(self.lista)):
             for j in range(len(self.lista[i])):
-                print(self.lista[i][j] , end=",") 
+                print(self.lista[i][j] , end=",")
                 print('len = '+ str( len(self.lista[i][j]) ), end="/")
             print("")
         return
@@ -79,15 +78,13 @@ def header(todos):
     print("├──────────┴─────────────────────────────────────────────────┴───────┤")
 
 def showTasks(todos):
-    # UNIX  (  ┘ └ ┐ ┌ ┼ ─ ├ ┤ ┴ ┬ │ )
-    # DOS   (  ┘ └ ┐ ┌ ┼ ─ ├ ┤ ┴ ┬ │ )
-    
-    # DOS 2 (  ╝ ╚ ╗ ╔ ╬ ═ ╠ ╣ ╩ ╦ ║ )
+    # UNIX-dos  (  ┘ └ ┐ ┌ ┼ ─ ├ ┤ ┴ ┬ │ )
+    # DOS only  (  ╝ ╚ ╗ ╔ ╬ ═ ╠ ╣ ╩ ╦ ║ )
     ''' ╔════╗
         ║oi╔═╬══╦══╗
         ║oi╚═╩══╝oi║
         ╚══════════╝     '''
-        
+
     print("├─────┬──────────────────────────────────────────────────────────────┤")
     print("│ 001 │ Comprar tal coisa                                            │")
     print("├─────┼──────────────────────────────────────────────────────────────┤")
@@ -100,7 +97,7 @@ def endPrompt(todos): # end of line menu
     print("├────────────────────────────────────────────────────────────────────┤")
     print("│  1 Nova tarefa  |  2 Editar tarefa |  3 Excluir tarefa  |  4 Sair  │")
     print("└────────────────────────────────────────────────────────────────────┘")
-    
+
     opc = 0
     while( opc != 4):
         return True
@@ -109,7 +106,7 @@ def sort(): # fazer mais tarde, nao alterar a lista original
     pass
 
 
-def COL(opc): 
+def COL(opc):
     ''' COL( opc ), retorna string com padrão ANSI para formatação
     opc = string -> ["BLACK", "RED", "GREEN", "YELLOW","BLUE", "MAGENTA", "CYAN" ]
     '''
@@ -142,6 +139,6 @@ def BCK(opc):
 def BLD(): return "\u001B[1m"
 def RST(): return "\u001B[0m"
 #--------------------------
-    
+
 if __name__ == '__main__':
 	main()

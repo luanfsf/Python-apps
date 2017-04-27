@@ -4,19 +4,20 @@
 def main():
     ''' Pseudocodigo
 
-    iniciar e ler a lista principal
+    Ler e instanciar lista principal
 
     exibir status 0 a 100
     exibir a lista principal
-    exibir menu de acoes
+    exibir menu de acoes (acoes sao metodos da classe lista)
     '''
 
     Todos = lista()
 
     while True:
-        header(Todos)
-        showTasks(Todos)
-        endPrompt (Todos)
+        header(Todos.lista)
+        showTasks(Todos.lista)
+        if ( endPrompt (Todos) == False):
+            break
 
 class lista:
     ''' Classe lista irá conter uma lista e métodos básicos para sua manipulação
@@ -32,6 +33,7 @@ class lista:
         with open("todos.db", "r") as db:
             for line in db:
                 todos.append(line.strip().split("**"))
+                # utilizando ** e não virgulas, para preservar as virgulas na descrição de tarefas
         return todos
 
     def saveDB(self):
@@ -51,28 +53,34 @@ class lista:
             self.list.append( [ Wrapper(), Priority()] )
             pass #return
         print ("Limite de tarefas atingido, delete algumas tarefas")
-        
+
         def Wrapper(max=60):
             ''' Input de no máximo max characteres para adicionar a lista '''
             print("|**********************************************************|") # 60 CHARACTERES
             task = input( "{}{}Digite a tarefa, 60 caracteres no máximo.{}".format(BLD(),COL("BLUE"),RST()) )
             if ( len(task) > max ):
+                print('A tarefa exede o limite de {} caracteres'.format(max))
                 Wrapper()
-            pass # return task
+            return task # <- quando estiver pronto
         def Priority():
             ''' Input inteiro [1,2,3] para definir a prioridade das tarefas '''
-            pri = input( "{}{} Digite a prioridade {}".format())
-            pass # return pri
-        
+            prioridades = [1,2,3]
+            # Pode exibir o texto da prioridade e em seguida pedir a prioridade
+            pri = input( "Digite a prioridade | 1 | 2 | 3 | " )
+            while pri not in prioridades:
+                print('As prioridades são | 1 | 2 | 3 | ')
+                Priority()
+            return pri # <- Retornar a prioridade
+
         return
-    
+
     def editTask(self):
         ''' Pede o indice do item da lista que deseja alterar, range(0, len(self.list))
             Exibe o item e pede para inserir novo texto e prioridade, caso
             o campo esteja em branco, não alterar e logo pedir a prioridade
         '''
         pass
-    
+
     def removeTask(self):
         ''' Pede o indice do item que deseja remover, range(0, len(self.list))
             Exibe o item e pergunta se deseja mesmo excluir
@@ -83,8 +91,10 @@ class lista:
         for i in range(len(self.lista)):
             for j in range(len(self.lista[i])):
                 print(self.lista[i][j] , end=",")
-                print('len = '+ str( len(self.lista[i][j]) ), end="/")
+                print('len = '+ str( len(self.lista[i][j]) ), end="**")
             print("")
+        # for i in self.lista:
+        #     print(i, end="**" )
         return
 
 # para testes
@@ -99,10 +109,6 @@ def header(todos):
 def showTasks(todos):
     # UNIX-dos  (  ┘ └ ┐ ┌ ┼ ─ ├ ┤ ┴ ┬ │ )
     # DOS only  (  ╝ ╚ ╗ ╔ ╬ ═ ╠ ╣ ╩ ╦ ║ )
-    ''' ╔════╗
-        ║oi╔═╬══╦══╗
-        ║oi╚═╩══╝oi║
-        ╚══════════╝     '''
 
     print("├─────┬──────────────────────────────────────────────────────────────┤")
     print("│ 001 │ Comprar tal coisa                                            │")
@@ -116,12 +122,13 @@ def endPrompt(todos): # end of line menu
     print("├────────────────────────────────────────────────────────────────────┤")
     print("│  1 Nova tarefa  |  2 Editar tarefa |  3 Excluir tarefa  |  4 Sair  │")
     print("└────────────────────────────────────────────────────────────────────┘")
-
+    opcoes = [1,2,3,4]
     opc = 0
-    while( opc != 4):
-        return True
+    while( opc not in opcoes ):
+        opc = int(input())
+    return False
 
-def sort(): # fazer mais tarde, nao alterar a lista original
+def sort(): # fazer mais tarde, ordenar por prioridade, nao alterar a ordem da lista original
     pass
 
 

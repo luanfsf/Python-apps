@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 # encoding: utf-8
 
+#import time, os, sys
+
 def main():
     ''' Pseudocodigo
 
@@ -8,22 +10,20 @@ def main():
 
     exibir status 0 a 100
     exibir a lista principal
-    exibir menu de acoes (acoes sao metodos da classe lista)
-    '''
+    exibir menu de acoes (acoes sao metodos da classe lista) '''
 
     Todos = lista()
 
     while True:
         header(Todos.lista)
         showTasks(Todos.lista)
-        if ( endPrompt (Todos) == False):
-            break
+        endPrompt(Todos)
 
 class lista:
-    ''' Classe lista irá conter uma lista e métodos básicos para sua manipulação
-    '''
+    ''' Classe lista, uma lista e métodos básicos para sua manipulação '''
 
     def __init__(self):
+
         self.lista = self.readDB()
 
     def readDB(self):
@@ -54,38 +54,62 @@ class lista:
             pass #return
         print ("Limite de tarefas atingido, delete algumas tarefas")
 
-        def Wrapper(max=60):
-            ''' Input de no máximo max characteres para adicionar a lista '''
-            print("|**********************************************************|") # 60 CHARACTERES
-            task = input( "{}{}Digite a tarefa, 60 caracteres no máximo.{}".format(BLD(),COL("BLUE"),RST()) )
-            if ( len(task) > max ):
-                print('A tarefa exede o limite de {} caracteres'.format(max))
-                Wrapper()
-            return task # <- quando estiver pronto
-        def Priority():
-            ''' Input inteiro [1,2,3] para definir a prioridade das tarefas '''
-            prioridades = [1,2,3]
-            # Pode exibir o texto da prioridade e em seguida pedir a prioridade
-            pri = input( "Digite a prioridade | 1 | 2 | 3 | " )
-            while pri not in prioridades:
-                print('As prioridades são | 1 | 2 | 3 | ')
-                Priority()
-            return pri # <- Retornar a prioridade
-
-        return
-
     def editTask(self):
         ''' Pede o indice do item da lista que deseja alterar, range(0, len(self.list))
             Exibe o item e pede para inserir novo texto e prioridade, caso
-            o campo esteja em branco, não alterar e logo pedir a prioridade
-        '''
-        pass
+            o campo esteja em branco, não alterar e logo pedir a prioridade '''
+
+        print('Digite o número da tarefa que deseja remover, da/s {} tarefa/s '.format( len( self.lista ) ) )
+
+        if ( len( self.lista ) == 0 ):
+            print('A lista não contem itens')
+            return
+
+        indice = 0
+
+        while (indice not in range(1, len(self.lista) + 1 ) ):
+            print('A tarefa selecionada não existe')
+            editTask()
+
+        # exibir a tarefa que sera editada 
+        self.lista[indice - 1] = [ Wrapper(), Priority()]
+
+        return
 
     def removeTask(self):
         ''' Pede o indice do item que deseja remover, range(0, len(self.list))
-            Exibe o item e pergunta se deseja mesmo excluir
-        '''
-        pass
+            Exibe o item e pergunta se deseja mesmo excluir   '''
+
+        if ( len( self.lista ) == 0 ):
+            print('A lista não contem itens')
+            return
+
+        while (indice not in range(1, len(self.lista) + 1 ) ):
+            print('A tarefa selecionada não existe')
+            removeTask()
+
+        del self.lista[ indice -1 ]
+
+        return
+
+    def Wrapper(max=60):
+        ''' Input de no máximo max characteres para adicionar a lista '''
+        print("|**********************************************************|") # 60 CHARACTERES
+        task = input( "{}{}Digite a tarefa, 60 caracteres no máximo.{}".format(BLD(),COL("BLUE"),RST()) )
+        if ( len(task) > max ):
+            print('A tarefa exede o limite de {} caracteres'.format(max))
+            Wrapper()
+        return task # <- quando estiver pronto
+
+    def Priority():
+        ''' Input inteiro [1,2,3] para definir a prioridade das tarefas '''
+        prioridades = [1,2,3]
+        # Pode exibir o texto da prioridade e em seguida pedir a prioridade
+        pri = input( "Digite a prioridade | 1 | 2 | 3 | ")
+        while pri not in prioridades:
+            print('As prioridades são | 1 | 2 | 3 | ')
+            Priority()
+        return pri # <- Retornar a prioridade
 
     def printDB(self): # Método somente para testes, ver itens por linha e len()
         for i in range(len(self.lista)):
@@ -126,11 +150,11 @@ def endPrompt(todos): # end of line menu
     opc = 0
     while( opc not in opcoes ):
         opc = int(input())
-    return False
+    if opc == 4:
+        exit()
 
 def sort(): # fazer mais tarde, ordenar por prioridade, nao alterar a ordem da lista original
     pass
-
 
 def COL(opc):
     ''' COL( opc ), retorna string com padrão ANSI para formatação

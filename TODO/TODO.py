@@ -2,7 +2,8 @@
 # encoding: utf-8
 
 import os # time, sys
-from lista_class import lista
+from lista_class ansi-easy import lista
+from ansi_easy import *
 
 def main():
     ''' Pseudocodigo
@@ -75,40 +76,6 @@ def clear():
 
 def sort(): # fazer mais tarde, ordenar por prioridade, nao alterar a ordem da lista original
     pass
-
-def COL(opc):
-    ''' COL( opc ), retorna string com padrão ANSI para formatação
-    opc = string -> ["BLACK", "RED", "GREEN", "YELLOW","BLUE", "MAGENTA", "CYAN" ] '''
-
-    cores = {
-    "BLACK"   : "\u001B[30m",
-    "RED"     : "\u001B[31m",
-    "GREEN"   : "\u001B[32m",
-    "YELLOW"  : "\u001B[33m",
-    "BLUE"    : "\u001B[34m",
-    "MAGENTA" : "\u001B[35m",
-    "CYAN"    : "\u001B[36m"
-    }
-    return cores[opc]
-
-def BCK(opc):
-    ''' BCK( opc ), retorna string com padrão ANSI para formatação
-    opc = string -> ["BLACK", "RED", "GREEN", "YELLOW","BLUE", "MAGENTA", "CYAN" ] '''
-
-    fundos = {
-    "BLACK"   : "\u001B[40m",
-    "RED"     : "\u001B[41m",
-    "GREEN"   : "\u001B[42m",
-    "YELLOW"  : "\u001B[43m",
-    "BLUE"    : "\u001B[44m",
-    "MAGENTA" : "\u001B[45m",
-    "CYAN"    : "\u001B[46m"
-    }
-    return fundos[opc]
-
-def BLD(): return "\u001B[1m"
-def RST(): return "\u001B[0m"
-#--------------------------
 
 if __name__ == '__main__':
 	main()

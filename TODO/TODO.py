@@ -12,7 +12,7 @@ def main():
 
     Exibir status 0 a 100
     Exibir a lista principal
-    Exibir menu de acoes (acoes sao metodos da classe lista)
+    Exibir menu de acoes (acoes sao metodos da classe lista, exceto sair)
     Executar tarefas do prompt
     Salvar lista '''
 
@@ -79,10 +79,10 @@ class lista:
 
         while (indice not in range(1, len(self.lista) + 1 ) ):
             print('A tarefa selecionada não existe')
-            editTask()
+            self.editTask()
 
         # exibir a tarefa que sera editada
-        self.lista[indice - 1] = [ Wrapper(), Priority()]
+        self.lista[indice - 1] = [ self.Wrapper(), self.Priority()]
 
         return
 
@@ -98,9 +98,9 @@ class lista:
 
         indice = int(input())
 
-        while (indice not in range(1, len(self.lista) + 1 ) ):
+        while (indice not in range(1, len(self.lista) +1 ) ):
             print('A tarefa selecionada não existe')
-            removeTask()
+            indice = int(input())
 
         del self.lista[ indice -1 ]
 
@@ -108,11 +108,11 @@ class lista:
 
     def Wrapper(self, max=60):
         ''' Input de no máximo max characteres para adicionar a lista '''
-        print('A tarefa exede o limite de {} caracteres, conforme abaixo'.format(max))
-        print("|**********************************************************|") # 60 CHARACTERES
-        task = input( "{}{}Digite a tarefa, 60 caracteres no máximo.{}".format(BLD(),COL("BLUE"),RST()) )
-        if ( len(task) > max ):
-            Wrapper()
+        task = input( "Digite a tarefa, 60 caracteres no máximo.")
+        while ( len(task) > max ):
+            print('A tarefa exede o limite de {} caracteres, conforme abaixo'.format(max))
+            print("|**********************************************************|") # 60 CHARACTERES
+            task = self.Wrapper()
         return task # <- quando estiver pronto
 
     def Priority(self):
@@ -122,7 +122,7 @@ class lista:
         pri = int(input( "Digite a prioridade | 1 | 2 | 3 | "))
         if pri not in prioridades:
             print('As prioridades são | 1 | 2 | 3 | ')
-            self.Priority()
+            pri = self.Priority()
         return pri # <- Retornar a prioridade
 
     def printDB(self): # Método somente para testes, ver itens por linha e len()
@@ -131,7 +131,7 @@ class lista:
                 print(self.lista[i][j] , end=",")
                 print('len = '+ str( len(self.lista[i][j]) ), end="**")
             print("")
-        # for i in self.lista:
+        # for i in self.lista:
         #     print(i, end="**" )
         return
 

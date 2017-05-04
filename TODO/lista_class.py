@@ -36,10 +36,11 @@ class lista:
 
     def Wrapper(self, max=60):
         ''' Input de no máximo max characteres para adicionar a lista '''
-        task = input( "Digite a tarefa, 60 caracteres no máximo.")
+        #print("Digite a tarefa, 60 caracteres no máximo.")
+        task = input( )
         while ( len(task) > max ):
-            print('A tarefa exede o limite de {} caracteres, conforme abaixo'.format(max))
-            print("|**********************************************************|") # 60 CHARACTERES
+            #print('A tarefa exede o limite de {} caracteres, conforme abaixo'.format(max))
+            #print("|**********************************************************|") # 60 CHARACTERES
             task = self.Wrapper()
         return task # <- quando estiver pronto
 
@@ -49,22 +50,22 @@ class lista:
         # Pode exibir o texto da prioridade e em seguida pedir a prioridade
         pri = 0
         while ( pri not in prioridades):
-            print('Digite a prioridade | 1 | 2 | 3 | ')
+            #print('Digite a prioridade | 1 | 2 | 3 | ')
             pri = self.Priority()
         return pri # <- Retornar a prioridade
 
     def editTask(self):
-        ''' Pede o indice do item da lista que deseja alterar, range(0, len(self.list))
+        ''' Pede o indice do item da lista que deseja alterar, range(1, len(self.lista) +1)
             Exibe o item e pede para inserir novo texto e prioridade, caso
-            o campo esteja em branco, não alterar e logo pedir a prioridade '''
+            o campo esteja em branco, não alterar '''
 
         if ( len( self.lista ) == 0 ):
             print('A lista não contem itens')
             return
 
-        print('Digite o número da tarefa que deseja editadar, da/s {} tarefa/s '.format( len( self.lista ) ) )
+        #print('Digite o número da tarefa que deseja editadar, da/s {} tarefa/s '.format( len( self.lista ) ) )
 
-        indice = 0
+        indice = int(input())
 
         while (indice not in range(1, len(self.lista) + 1 ) ):
             print('A tarefa selecionada não existe')
@@ -80,15 +81,15 @@ class lista:
             Exibe o item e pergunta se deseja mesmo excluir   '''
 
         if ( len( self.lista ) == 0 ):
-            print('A lista não contem itens')
+            #print('A lista não contem itens')
             return
 
-        print('Digite o número da tarefa que deseja remover, da/s {} tarefa/s '.format( len( self.lista ) ) )
+        #print('Digite o número da tarefa que deseja remover, da/s {} tarefa/s '.format( len( self.lista ) ) )
 
         indice = int(input())
 
         while (indice not in range(1, len(self.lista) +1 ) ):
-            print('A tarefa selecionada não existe')
+            #print('A tarefa selecionada não existe')
             indice = int(input())
 
         del self.lista[ indice -1 ]

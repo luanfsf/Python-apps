@@ -1,26 +1,31 @@
 # UNIX-dos  (  ┘ └ ┐ ┌ ┼ ─ ├ ┤ ┴ ┬ │ )
 # DOS only  (  ╝ ╚ ╗ ╔ ╬ ═ ╠ ╣ ╩ ╦ ║ )
 
+from ansi_easy import *
+
 def header():
     print("┌───────┬────────────────────────────────────────────────────┬─────────┐")
     print("│ TODOs │                                                    │ {3}/100 │")
-    print("├───────┴────────────────────────────────────────────────────┴─────────┤")
+    print("└┬──────┴────────────────────────────────────────────────────┴────────┬┘")
 
 def showTasks(todos):
     ''' Loop para exibir tarefas '''
-    print("├───────┬──────────────────────────────────────────────────────────────┤")
+    print("┌┴──────┬─────────────────────────────────────────────────────────────┴┐")
     for i in range(len(todos.lista)):
-        print("│  {:^3}  │ {:^60} │".format( i, todos.lista[i]) ) # Incluir formatacao e cor da prioridade
-        print("├───────┴──────────────────────────────────────────────────────────────┤")
-    print("├───────┴──────────────────────────────────────────────────────────────┤")
+        print("│  {:^3}  │ {:^60} │".format( i+1, todos.lista[i][0]) ) # Incluir formatacao e cor da prioridade
+        if (i == len(todos.lista) -1 ):
+            print("└┬──────┴─────────────────────────────────────────────────────────────┬┘")
+        else:
+            print("├───────┼──────────────────────────────────────────────────────────────┤")
+    #print("├───────┴──────────────────────────────────────────────────────────────┤")
 
-def endPrompt(todos): # Chama as funcoes da classe lista, mas não faz parte da classe lista
-    print("├─────────────────┬──────────────────┬────────────────────┬────────────┤")
+def endPrompt(): # Chama as funcoes da classe lista, mas não faz parte da classe lista
+    print("┌┴────────────────┬──────────────────┬────────────────────┬───────────┴┐")
     print("│  1 Nova tarefa  │  2 Editar tarefa │  3 Excluir tarefa  │   4 Sair   │")
     print("└─────────────────┴──────────────────┴────────────────────┴────────────┘")
 
     opcoes = [1,2,3,4]
-    opc = int(input())
+    opc = 0
 
     while( opc not in opcoes ):
         opc = int(input())

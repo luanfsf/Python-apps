@@ -34,6 +34,25 @@ class lista:
         else:
             print ("Limite de tarefas atingido, delete algumas tarefas")
 
+    def Wrapper(self, max=60):
+        ''' Input de no máximo max characteres para adicionar a lista '''
+        task = input( "Digite a tarefa, 60 caracteres no máximo.")
+        while ( len(task) > max ):
+            print('A tarefa exede o limite de {} caracteres, conforme abaixo'.format(max))
+            print("|**********************************************************|") # 60 CHARACTERES
+            task = self.Wrapper()
+        return task # <- quando estiver pronto
+
+    def Priority(self):
+        ''' Input inteiro [1,2,3] para definir a prioridade das tarefas '''
+        prioridades = [1,2,3]
+        # Pode exibir o texto da prioridade e em seguida pedir a prioridade
+        pri = 0
+        while ( pri not in prioridades):
+            print('Digite a prioridade | 1 | 2 | 3 | ')
+            pri = self.Priority()
+        return pri # <- Retornar a prioridade
+
     def editTask(self):
         ''' Pede o indice do item da lista que deseja alterar, range(0, len(self.list))
             Exibe o item e pede para inserir novo texto e prioridade, caso
@@ -45,11 +64,11 @@ class lista:
 
         print('Digite o número da tarefa que deseja editadar, da/s {} tarefa/s '.format( len( self.lista ) ) )
 
-        indice = int(input())
+        indice = 0
 
         while (indice not in range(1, len(self.lista) + 1 ) ):
             print('A tarefa selecionada não existe')
-            self.editTask()
+            indice = int(input())
 
         # exibir a tarefa que sera editada
         self.lista[indice - 1] = [ self.Wrapper(), self.Priority()]
@@ -75,25 +94,6 @@ class lista:
         del self.lista[ indice -1 ]
 
         return
-
-    def Wrapper(self, max=60):
-        ''' Input de no máximo max characteres para adicionar a lista '''
-        task = input( "Digite a tarefa, 60 caracteres no máximo.")
-        while ( len(task) > max ):
-            print('A tarefa exede o limite de {} caracteres, conforme abaixo'.format(max))
-            print("|**********************************************************|") # 60 CHARACTERES
-            task = self.Wrapper()
-        return task # <- quando estiver pronto
-
-    def Priority(self):
-        ''' Input inteiro [1,2,3] para definir a prioridade das tarefas '''
-        prioridades = [1,2,3]
-        # Pode exibir o texto da prioridade e em seguida pedir a prioridade
-        pri = int(input( "Digite a prioridade | 1 | 2 | 3 | "))
-        if pri not in prioridades:
-            print('As prioridades são | 1 | 2 | 3 | ')
-            pri = self.Priority()
-        return pri # <- Retornar a prioridade
 
     def printDB(self): # Método somente para testes, ver itens por linha e len()
         for i in range(len(self.lista)):

@@ -1,11 +1,8 @@
 #!/usr/bin/env python3
 # encoding: utf-8
 
-import os # time, sys
+import lista_class as LC, tui as UI
 
-from lista_class import lista
-from ansi_easy import *
-from tui import *
 
 def main():
     '''                      Pseudocodigo
@@ -19,15 +16,15 @@ def main():
     Executar tarefas do prompt
     Salvar lista '''
 
-    Todos = lista()
+    Todos = LC.lista()
 
     while True:
         Todos.readDB()
 
-        clear()
-        header(Todos.lista)
-        showTasks(Todos.lista)
-        endPrompt(Todos)
+        UI.clear()
+        UI.header(Todos.lista)
+        UI.showTasks(Todos.lista)
+        UI.endPrompt(Todos)
 
         Todos.saveDB()
 

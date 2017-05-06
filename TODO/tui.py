@@ -6,26 +6,28 @@ import ansi_easy as AE
 
 def header(todos):
     ''' Exibe o número de tarefas e barra de uso'''
+
     print("┌───────┬────────────────────────────────────────────────────┬─────────┐")
     print("│ TODOs │                                                    │ {3}/100 │")
     print("└┬──────┴────────────────────────────────────────────────────┴────────┬┘")
 
 def showTasks(todos):
-    ''' Loop para exibir '''
+    ''' Loop para exibir as tarefas e prioridades '''
+
     print("┌┴──────┬─────────────────────────────────────────────────────────────┴┐")
     for i in range(len(todos.lista)):
-        # todos.lista[i][1] deve ser utilizado para fomatar a cor do 
+        # todos.lista[i][1] deve ser utilizado para fomatar a cor do
         print("│  {:^3}  │ {:^60} │".format( i+1, todos.lista[i][0]) ) # Incluir formatacao e cor da prioridade
         if (i == len(todos.lista) -1 ):
             print("└┬──────┴─────────────────────────────────────────────────────────────┬┘")
         else:
             print("├───────┼──────────────────────────────────────────────────────────────┤")
-    #print("├───────┴──────────────────────────────────────────────────────────────┤")
+    return
 
 def endPrompt(todos): # Chama as funcoes da classe lista, mas não faz parte da classe lista
     print("┌┴────────────────┬──────────────────┬────────────────────┬───────────┴┐")
     print("│  1 Nova tarefa  │  2 Editar tarefa │  3 Excluir tarefa  │   4 Sair   │")
-    print("└─────────────────┴──────────────────┴────────────────────┴────────────┘")
+    print("└┬────────────────┴──────────────────┴────────────────────┴───────────┬┘")
 
     opcoes = [1,2,3,4]
     opc = 0
@@ -34,8 +36,13 @@ def endPrompt(todos): # Chama as funcoes da classe lista, mas não faz parte da 
         opc = int(input())
 
     if ( opc == 1 ):
-        addTaskDecorator()
-        todos.addTask()
+
+        if (todos.addTask.check() == 1 ):
+            addTaskDecorator()
+            todos.addTask()
+        else:
+            addTaskDecorator("Full")
+
         todos.saveDB()
 
     elif ( opc == 2 ):
@@ -52,14 +59,24 @@ def endPrompt(todos): # Chama as funcoes da classe lista, mas não faz parte da 
         todos.saveDB()
         exit()
 #-------------------------------- Apenas Exibem um cabeçalho para a função
-def addTaskDecorator():
-    print("Adicionar tarefa")
-    
+def addTaskDecorator(full):
+    print("┌┴────────────────────────────────────────────────────────────────────┴┐")
+    if (full == "Full"):
+        print("│ Não há espaço para novos itens, remova alguns itens                  │")
+
+    else:
+        print("│ Adicionar tarefa de no maximo 60 characteres                         │")
+    print("└──────────────────────────────────────────────────────────────────────┘")
+
 def editTaskDecorator():
-    print("Editar tarefa")
-    
+    print("┌┴────────────────────────────────────────────────────────────────────┴┐")
+    print("│ Digite o indice da tarefa que deseja editar                          │")
+    print("└──────────────────────────────────────────────────────────────────────┘")
+
 def removeTaskDecorator():
-    print("Remover tarefa")
+    print("┌┴────────────────────────────────────────────────────────────────────┴┐")
+    print("│ Digite o indice da tarefa que deseja remover                         │")
+    print("└──────────────────────────────────────────────────────────────────────┘")
 #--------------------------------
 
 def sort(): # fazer mais tarde, ordenar por prioridade, nao alterar a ordem da lista original

@@ -12,27 +12,31 @@ class lista:
         with open("todos.db", "r") as db:
             for line in db:
                 self.lista.append(line.strip().split("**"))
-                # utilizando ** e não virgulas, para preservar as virgulas na descrição de tarefas
-        return self
+        return
 
     def saveDB(self):
         ''' Salva a lista completa no arquivo todos.db, cada linha contendo uma tarefa e
             sua prioridade, separadas por "**". E deverá ser chamado sempre após uma alteração    '''
+
         outF = open("todos.db", "w")
         for line in self.lista:
             outF.write("**".join(map(str, line)))
             outF.write("\n")
         outF.close()
+        return
 
     def addTask(self):
         ''' Adicionar elemento na lista desde que não ultrapasse o limite de 100, somente
             para manter uma formatação correta. Exibir mensagem (Não é possível adicionar
             mais tarefas, remova algumas tarefas para continuar), caso len(self.lista) > 100 '''
-        if (len(self.lista) < 100 ):
-            self.lista.append( [ self.Wrapper(), self.Priority()] )
-            pass #return
-        else:
-            print ("Limite de tarefas atingido, delete algumas tarefas")
+
+        def check(self):
+            ''' Retorna 1 caso a lista contenha menos de 100 itens, caso contrário retorna 0 '''
+            if (len(self.lista) < 100 ):
+                return 1
+            return 0
+
+        self.lista.append( [ self.Wrapper(), self.Priority()] )
 
     def Wrapper(self, max=60):
         ''' Input de no máximo max characteres para adicionar a lista '''

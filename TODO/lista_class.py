@@ -1,61 +1,76 @@
 class lista:
+
     ''' Classe lista, uma lista e métodos básicos para sua manipulação '''
 
     def __init__(self):
+        pass
+
+    def readDB(self):
+
+        ''' Lê o arquivo todos.db e separa cada linha como uma tarefa cada
+        linha contém uma tarefa e uma prioridade, o separador é "**" '''
 
         self.lista = []
 
-    def readDB(self):
-        ''' Lê o arquivo todos.db e separa cada linha como uma tarefa
-            cada linha contém uma tarefa e uma prioridade, o separador é "**"    '''
-
         with open("todos.db", "r") as db:
             [self.lista.append(line.strip().split("**")) for line in db]
+
         return
 
     def saveDB(self):
-        ''' Salva a lista completa no arquivo todos.db, cada linha contendo uma tarefa e
-            sua prioridade, separadas por "**". E deverá ser chamado sempre após uma alteração    '''
 
-        outF = open("todos.db", "w")
-        for line in self.lista:
-            outF.write("**".join(map(str, line)))
-            outF.write("\n")
-        outF.close()
+        ''' Salva a lista completa no arquivo todos.db, cada linha contendo
+        uma tarefa e sua prioridade, separadas por "**". E deverá ser chamado
+        sempre após uma alteração '''
+
+        with open("todos.db", "w") as outF:
+            for line in self.lista:
+                outF.write("**".join(map(str, line)))
+                outF.write("\n")
+
         return
 
     def addTask(self):
-        ''' Adicionar elemento na lista desde que não ultrapasse o limite de 100, somente
-            para manter uma formatação correta. Exibir mensagem (Não é possível adicionar
-            mais tarefas, remova algumas tarefas para continuar), caso len(self.lista) > 100 '''
+
+        ''' Adicionar elemento na lista desde que não ultrapasse o limite de
+            60 caracteres somente para manter uma formatação correta. '''
 
         self.lista.append( [ self.Wrapper(), self.Priority()] )
 
     def Wrapper(self, max=60):
+
         ''' Input de no máximo max characteres para adicionar a lista '''
+
         task = input( )
-        while ( len(task) > max ):
+
+        if ( len(task) > max ):
             task = self.Wrapper()
+
         return task
 
     def Priority(self):
+
         ''' Input inteiro [1,2,3] para definir a prioridade das tarefas '''
+
         prioridades = [1,2,3]
-        pri = 0
-        while ( pri not in prioridades):
+        
+        pri = int(input())
+
+        if ( pri not in prioridades):
             pri = self.Priority()
+
         return pri
 
     def editTask(self, indice):
-        ''' Pede o indice do item da lista que deseja alterar, range(1, len(self.lista) +1)
-            Exibe o item e pede para inserir novo texto e prioridade, caso
-            o campo esteja em branco, não alterar '''
 
-        self.lista[indice - 1] = [ self.Wrapper(), self.Priority()]
+        ''' Editar a tarefa no indice selecionado '''
+
+        self.lista[ indice - 1] = [ self.Wrapper(), self.Priority()]
 
         return
 
-    def removeTask(self):
+    def removeTask(self, indice):
+
         ''' Pede o indice do item que deseja remover, range(0, len(self.list))
         Exibe o item e pergunta se deseja mesmo excluir   '''
 
@@ -63,9 +78,10 @@ class lista:
 
         return
 
-    def checkindex(self):
+    def checkindex(self, indice):
 
-        indice = int(input())
+        ''' Verifica se o indice desejado faz parte da lista, retorna 0 caso
+        não faça parte do indice, caso contrário retorna o indice '''
 
         if (indice not in range(1, len(self.lista) + 1 ) ):
             return 0
@@ -73,16 +89,21 @@ class lista:
         return indice
 
     def checklen(self):
-        ''' Retorna 1 caso a lista contenha menos de 100 itens, caso contrário retorna '''
+
+        ''' Retorna 1 se a lista contém menos de 100 itens, 0 caso contrário '''
 
         if (len(self.lista) < 100 ):
             return 1
-        return
+
+        return 0
 
     def checkempty(self):
 
+        ''' Retorna 1 caso a lista não contenha itens, 0 caso contrário'''
+
         if ( len( self.lista ) == 0 ):
             return 1
+
         return 0
 
     def printDB(self): # Método somente para testes, ver itens por linha e len()

@@ -1,4 +1,4 @@
-class lista:
+class Lista:
     '''Classe lista, uma lista e métodos básicos para sua manipulação.
     '''
 

@@ -1,40 +1,47 @@
-# UNIX-dos  (  ┘ └ ┐ ┌ ┼ ─ ├ ┤ ┴ ┬ │ )
-# DOS only  (  ╝ ╚ ╗ ╔ ╬ ═ ╠ ╣ ╩ ╦ ║ )
 
 import os
 import ansi_easy as AE
 
 def header(todos):
     ''' Exibe o número de tarefas e barra de uso'''
-    print("┌───────┬────────────────────────────────────────────────────┬─────────┐")
+    print(start)
     print("│ TODOs │                                                    │ {3}/100 │")
-    print("└┬──────┴────────────────────────────────────────────────────┴────────┬┘")
+    print(taskend)
 
-midhead = "┌┴──────┬─────────────────────────────────────────────────────────────┴┐"
-middle =  "├───────┼──────────────────────────────────────────────────────────────┤"
-midend =  "└┬──────┴─────────────────────────────────────────────────────────────┬┘"
+midhead  = "┌┴──────┬─────────────────────────────────────────────────────────────┴┐"
+middle   = "├───────┼──────────────────────────────────────────────────────────────┤"
+midend   = "└┬──────┴─────────────────────────────────────────────────────────────┬┘"
 
+taskhead = "┌┴────────────────────────────────────────────────────────────────────┴┐"
+taskend  = "└┬────────────────────────────────────────────────────────────────────┬┘"
 
-start  = "┌──────────────────────────────────────────────────────────────────────┐"
-end    = "└──────────────────────────────────────────────────────────────────────┘"
+prpthead = "┌┴────────────────┬──────────────────┬────────────────────┬───────────┴┐"
+prptend  = "└┬────────────────┴──────────────────┴────────────────────┴───────────┬┘"
+
+start    = "┌──────────────────────────────────────────────────────────────────────┐"
+end      = "└──────────────────────────────────────────────────────────────────────┘"
 
 def showTasks(todos):
     ''' Loop para exibir as tarefas e prioridades '''
 
     print(midhead)
+
     for i in range(len(todos.lista)):
         # todos.lista[i][1] deve ser utilizado para fomatar a cor do
         print("│  {:^3}  │ {:^60} │".format( i+1, todos.lista[i][0]) ) # Incluir formatacao e cor da prioridade
         if (i == len(todos.lista) -1 ):
             print(midend)
-        else:
-            print(middle)
+            return
+
+        print(middle)
+
     return
 
 def endPrompt(todos): # Chama as funcoes da classe lista, mas não faz parte da classe lista
-    print("┌┴────────────────┬──────────────────┬────────────────────┬───────────┴┐")
+
+    print(prpthead)
     print("│  1 Nova tarefa  │  2 Editar tarefa │  3 Excluir tarefa  │   4 Sair   │")
-    print("└┬────────────────┴──────────────────┴────────────────────┴───────────┬┘")
+    print(prptend)
 
     opcoes = [1,2,3,4]
     opc = 0
@@ -58,8 +65,8 @@ def endPrompt(todos): # Chama as funcoes da classe lista, mas não faz parte da 
             noTasks()
 
         if (todos.editTask.indice() != 0)
-            todos.editTask()
             editTaskDecorator()
+            todos.editTask()
 
         todos.saveDB()
 
@@ -74,27 +81,29 @@ def endPrompt(todos): # Chama as funcoes da classe lista, mas não faz parte da 
     else:
         todos.saveDB()
         exit()
-#-------------------------------- Apenas Exibem um cabeçalho para a função
+
+#-------------------------------- Apenas Exibem um cabeçalho para as funções
+
 def addTaskDecorator():
 
-    print(midhead)
+    print(taskhead)
     print("│ Adicionar tarefa de no máximo 60 characteres                         │")
     # print("|**********************************************************|           |") # 60 CHARACTERES
-    print(midend)
+    print(end)
 
     return
 
 def editTaskDecorator():
 
-    print(midhead)
+    print(taskhead)
     print("│ Digite o indice da tarefa que deseja editar                          │")
-    print(midend)
+    print(end)
 
     return
 
 def removeTaskDecorator():
 
-    print(start)
+    print(taskhead)
     print("│ Digite o indice da tarefa que deseja remover                         │")
     print(end)
 
@@ -116,7 +125,8 @@ def fullTasks():
 
     return
 
-#--------------------------------
+# UNIX-dos  (  ┘ └ ┐ ┌ ┼ ─ ├ ┤ ┴ ┬ │ )
+# DOS only  (  ╝ ╚ ╗ ╔ ╬ ═ ╠ ╣ ╩ ╦ ║ )
 
 def sort(): # fazer mais tarde, ordenar por prioridade, nao alterar a ordem da lista original
     pass

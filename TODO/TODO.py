@@ -3,7 +3,6 @@
 
 import lista_class as LC, tui as UI
 
-
 def main():
     '''                      Pseudocodigo
     Instanciar classe lista
@@ -16,14 +15,14 @@ def main():
     Executar tarefas do prompt
     Salvar lista '''
 
-    Todos = LC.lista()
+    Todos = LC.Lista()
 
     while True:
         Todos.readDB()
 
-        UI.clear()
+        #UI.clear()
         UI.header(Todos.lista)
-        UI.showTasks(Todos.lista)
+        UI.showTasks(Todos)
         UI.endPrompt(Todos)
 
         Todos.saveDB()

@@ -2,12 +2,6 @@
 import os
 import ansi_easy as AE
 
-def header(todos):
-    ''' Exibe o número de tarefas e barra de uso'''
-    print(start)
-    print("│ TODOs │                                                    │ {3}/100 │")
-    print(taskend)
-
 midhead  = "┌┴──────┬─────────────────────────────────────────────────────────────┴┐"
 middle   = "├───────┼──────────────────────────────────────────────────────────────┤"
 midend   = "└┬──────┴─────────────────────────────────────────────────────────────┬┘"
@@ -21,7 +15,18 @@ prptend  = "└┬────────────────┴───�
 start    = "┌──────────────────────────────────────────────────────────────────────┐"
 end      = "└──────────────────────────────────────────────────────────────────────┘"
 
+def header(todos):
+
+    ''' Exibe o número de tarefas e barra de uso'''
+
+    print(start)
+    print("│ TODOs │                                                    │ {3}/100 │")
+    print(taskend)
+
+    return
+
 def showTasks(todos):
+
     ''' Loop para exibir as tarefas e prioridades '''
 
     print(midhead)
@@ -29,7 +34,9 @@ def showTasks(todos):
     for i in range(len(todos.lista)):
         # todos.lista[i][1] deve ser utilizado para fomatar a cor do
         print("│  {:^3}  │ {:^60} │".format( i+1, todos.lista[i][0]) ) # Incluir formatacao e cor da prioridade
+
         if (i == len(todos.lista) -1 ):
+
             print(midend)
             return
 
@@ -43,43 +50,59 @@ def endPrompt(todos): # Chama as funcoes da classe lista, mas não faz parte da 
     print("│  1 Nova tarefa  │  2 Editar tarefa │  3 Excluir tarefa  │   4 Sair   │")
     print(prptend)
 
-    opcoes = [1,2,3,4]
-    opc = 0
+    executor(todos, options())
 
-    while( opc not in opcoes ):
-        opc = int(input())
+    return
+
+def options():
+
+    opcoes = [1,2,3,4]
+
+    opc = int(input())
+
+    if ( opc not in opcoes ):
+
+        opc = options()
+
+    return opc
+
+def executor(todos, opc):
 
     if ( opc == 1 ):
 
         if (todos.checklen() == 1 ):
+
             addTaskDecorator()
             todos.addTask()
-        else:
-            fullTasks()
 
-        todos.saveDB()
+        else:
+
+            fullTasks()
+            return
 
     elif ( opc == 2 ):
 
         if (todos.checkempty() == 1):
+
             noTasks()
+            return
 
-        if (todos.editTask.indice() != 0)
+        if (todos.checkindex(4) != 0):
+
             editTaskDecorator()
-            todos.editTask()
+            todos.editTask(4)
 
-        todos.saveDB()
+            todos.saveDB()
 
     elif ( opc == 3 ):
 
         if (todos.checkempty() == 1):
 
-        removeTaskDecorator()
-        todos.removeTask()
-        todos.saveDB()
+            removeTaskDecorator()
+            todos.removeTask()
+            todos.saveDB()
 
     else:
-        todos.saveDB()
         exit()
 
 #-------------------------------- Apenas Exibem um cabeçalho para as funções

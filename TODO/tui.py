@@ -97,9 +97,13 @@ def executor(todos, opc):
     elif ( opc == 3 ):
 
         if (todos.checkempty() == 1):
+            noTasks()
+            return
+
+        if (todos.checkindex(4) != 0):
 
             removeTaskDecorator()
-            todos.removeTask()
+            todos.removeTask(4)
             todos.saveDB()
 
     else:

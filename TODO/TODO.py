@@ -20,8 +20,8 @@ def main():
     while True:
         Todos.readDB()
 
-        #UI.clear()
-        UI.header(Todos.lista)
+        UI.clear()
+        UI.header( len(Todos.lista) )
         UI.showTasks(Todos)
         UI.endPrompt(Todos)
 

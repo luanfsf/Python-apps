@@ -15,12 +15,16 @@ prptend  = "└┬────────────────┴───�
 start    = "┌──────────────────────────────────────────────────────────────────────┐"
 end      = "└──────────────────────────────────────────────────────────────────────┘"
 
-def header(todos):
+def header(ntasks):
 
     ''' Exibe o número de tarefas e barra de uso'''
 
+    # print(AE.BLD(),end="")
+    # print(AE.BCK("BLUE"),end="")
+    # print(AE.COL("GREEN"),end="")
+
     print(start)
-    print("│ TODOs │                                                    │ {3}/100 │")
+    print("│ TODOs │                                                    │ {:^3}/100 │".format( ntasks ) )
     print(taskend)
 
     return
@@ -29,7 +33,8 @@ def showTasks(todos):
 
     ''' Loop para exibir as tarefas e prioridades '''
 
-    print(midhead)
+    if ( len(todos.lista) > 0 ):
+        print(midhead)
 
     for i in range(len(todos.lista)):
         # todos.lista[i][1] deve ser utilizado para fomatar a cor do
@@ -48,15 +53,15 @@ def endPrompt(todos): # Chama as funcoes da classe lista, mas não faz parte da 
 
     print(prpthead)
     print("│  1 Nova tarefa  │  2 Editar tarefa │  3 Excluir tarefa  │   4 Sair   │")
-    print(prptend)
+    print(prptend, end="")
 
-    executor(todos, options())
+    executor(todos, options() )
 
     return
 
 def options():
 
-    opcoes = [1,2,3,4]
+    opcoes = range(1,5)
 
     opc = int(input())
 
@@ -87,10 +92,12 @@ def executor(todos, opc):
             noTasks()
             return
 
-        if (todos.checkindex(4) != 0):
+        editTaskDecorator()
+        indice = int(input())
 
-            editTaskDecorator()
-            todos.editTask(4)
+        if (todos.checkindex(indice) != 0):
+
+            todos.editTask(indice)
 
             todos.saveDB()
 
@@ -100,10 +107,12 @@ def executor(todos, opc):
             noTasks()
             return
 
-        if (todos.checkindex(4) != 0):
+        removeTaskDecorator()
+        indice = int(input())
 
-            removeTaskDecorator()
-            todos.removeTask(4)
+        if (todos.checkindex(indice) != 0):
+
+            todos.removeTask(indice)
             todos.saveDB()
 
     else:
@@ -114,7 +123,8 @@ def executor(todos, opc):
 def addTaskDecorator():
 
     print(taskhead)
-    print("│ Adicionar tarefa de no máximo 60 characteres                         │")
+    print("│ Digite uma tarefa de no máximo 60 characteres                        │")
+    print("│ Em seguida digite a prioridade da tarefa 1, 2, 3                     │")
     # print("|**********************************************************|           |") # 60 CHARACTERES
     print(end)
 
@@ -124,7 +134,7 @@ def editTaskDecorator():
 
     print(taskhead)
     print("│ Digite o indice da tarefa que deseja editar                          │")
-    print(end)
+    print(end, end="")
 
     return
 
@@ -132,7 +142,7 @@ def removeTaskDecorator():
 
     print(taskhead)
     print("│ Digite o indice da tarefa que deseja remover                         │")
-    print(end)
+    print(end, end="")
 
     return
 

@@ -14,6 +14,7 @@ prptend  = "└┬────────────────┴───�
 
 start    = "┌──────────────────────────────────────────────────────────────────────┐"
 end      = "└──────────────────────────────────────────────────────────────────────┘"
+
 endind   = "└──────────────────────────────────────────────────────────┬───────────┘"
 
 def header(ntasks):
@@ -35,6 +36,7 @@ def header(ntasks):
 def showTasks(todos):
 
     ''' Loop para exibir as tarefas e prioridades '''
+
     cores = {"1":"GREEN", "2":"YELLOW", "3":"RED"}
 
     blank = AE.RST()
@@ -101,28 +103,34 @@ def executor(todos, opc):
             noTasks()
             return
 
-        editTaskDecorator()
-        indice = int(input())
+        else:
+            editTaskDecorator()
+            indice = int(input(AE.INV()))
+            print(AE.RST(),end="")
+            #print message being edited
+            addTaskDecorator()
 
-        if (todos.checkindex(indice) != 0):
+            if (todos.checkindex(indice) != 0):
 
-            todos.editTask(indice)
+                todos.editTask(indice)
 
-            todos.saveDB()
+                todos.saveDB()
+        return
 
     elif ( opc == 3 ):
 
         if (todos.checkempty() == 1):
             noTasks()
             return
+        else:
+            removeTaskDecorator()
+            indice = int(input())
 
-        removeTaskDecorator()
-        indice = int(input())
+            if (todos.checkindex(indice) != 0):
 
-        if (todos.checkindex(indice) != 0):
-
-            todos.removeTask(indice)
-            todos.saveDB()
+                todos.removeTask(indice)
+                todos.saveDB()
+        return
 
     else:
         endMessage()
@@ -133,8 +141,8 @@ def executor(todos, opc):
 def addTaskDecorator():
 
     print(taskhead)
-    print("│ Digite uma tarefa que não ultrapasse o marcador abaixo               │")
-    print("│ Em seguida digite a prioridade da tarefa 1, 2, 3                     │")
+    print("│ Digite uma tarefa que não ultrapasse o marcador abaixo.              │")
+    print("│ Em seguida digite a prioridade  {}  1 NORMAL  {}  2 MÉDIA   {}   3 ALTA   {} │".format(AE.BCK("GREEN"), AE.BCK("YELLOW"), AE.BCK("RED"), AE.RST() ))
     print(endind)
 
     return
@@ -143,7 +151,7 @@ def editTaskDecorator():
 
     print(taskhead)
     print("│ Digite o indice da tarefa que deseja editar                          │")
-    print(end, end="")
+    print(taskend, end="")
 
     return
 
@@ -157,10 +165,10 @@ def removeTaskDecorator():
 
 def noTasks():
 
-    print(start)
-    print("│ Não há itens na lista                                                │")
-    print(end)
-
+    print(taskhead)
+    print("│ Não há itens na lista, pressione qualquer tecla para continuar       │")
+    input(end + AE.INV())
+    print(AE.RST())
     return
 
 def fullTasks():

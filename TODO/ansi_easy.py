@@ -42,9 +42,13 @@ def BCK(opc):
     return fundos[opc]
 
 def BLD():
-    ''' Bold text, Not compatible with all terminals '''
+    ''' Bold text, not compatible with all terminals '''
     return "\u001B[1m"
 
+def INV():
+    ''' Hiddens the text, not compatible with all terminals '''
+    return "\u001B[8m"
+
 def RST():
-    ''' Resets the output to terminal's standard '''
+    ''' Resets the output to terminal's default '''
     return "\u001B[0m"

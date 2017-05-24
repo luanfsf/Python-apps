@@ -14,17 +14,20 @@ prptend  = "└┬────────────────┴───�
 
 start    = "┌──────────────────────────────────────────────────────────────────────┐"
 end      = "└──────────────────────────────────────────────────────────────────────┘"
+endind   = "└──────────────────────────────────────────────────────────┬───────────┘"
 
 def header(ntasks):
 
     ''' Exibe o número de tarefas e barra de uso'''
 
-    # print(AE.BLD(),end="")
-    # print(AE.BCK("BLUE"),end="")
-    # print(AE.COL("GREEN"),end="")
+    spaces = " "* int(ntasks/2)
+    if(ntasks != 100):
+        usage = spaces + "{} ".format(AE.RST()) * (50-len(spaces))
+    else:
+        usage = spaces + AE.RST()
 
     print(start)
-    print("│ TODOs │                                                    │ {:^3}/100 │".format( ntasks ) )
+    print("│ TODOs │ {}{:<50} │ {:^3}/100 │".format(AE.BCK("GREEN"), usage, ntasks ) )
     print(taskend)
 
     return
@@ -32,13 +35,18 @@ def header(ntasks):
 def showTasks(todos):
 
     ''' Loop para exibir as tarefas e prioridades '''
+    cores = {"1":"GREEN", "2":"YELLOW", "3":"RED"}
+
+    blank = AE.RST()
 
     if ( len(todos.lista) > 0 ):
         print(midhead)
 
     for i in range(len(todos.lista)):
         # todos.lista[i][1] deve ser utilizado para fomatar a cor do
-        print("│  {:^3}  │ {:^60} │".format( i+1, todos.lista[i][0]) ) # Incluir formatacao e cor da prioridade
+        cor = AE.COL( cores[todos.lista[i][1]] )
+        col = "{}{}".format(AE.BCK("DEFAULT"), AE.BLD())
+        print("│  {:^3}  │ {}{}{:<60}{} │".format(i+1, col, cor, todos.lista[i][0], blank ) ) # Incluir formatacao e cor da prioridade
 
         if (i == len(todos.lista) -1 ):
 
@@ -63,7 +71,8 @@ def options():
 
     opcoes = range(1,5)
 
-    opc = int(input())
+    opc = int(input(AE.INV()))
+    print(AE.RST(),end="")
 
     if ( opc not in opcoes ):
 
@@ -116,6 +125,7 @@ def executor(todos, opc):
             todos.saveDB()
 
     else:
+        endMessage()
         exit()
 
 #-------------------------------- Apenas Exibem um cabeçalho para as funções
@@ -123,10 +133,9 @@ def executor(todos, opc):
 def addTaskDecorator():
 
     print(taskhead)
-    print("│ Digite uma tarefa de no máximo 60 characteres                        │")
+    print("│ Digite uma tarefa que não ultrapasse o marcador abaixo               │")
     print("│ Em seguida digite a prioridade da tarefa 1, 2, 3                     │")
-    # print("|**********************************************************|           |") # 60 CHARACTERES
-    print(end)
+    print(endind)
 
     return
 
@@ -158,6 +167,14 @@ def fullTasks():
 
     print(start)
     print("│ Não há espaço para novos itens, remova alguns itens                  │")
+    print(end)
+
+    return
+
+def endMessage():
+
+    print(taskhead)
+    print("│ Até logo! E conclua suas tarefas!!!                                  │")
     print(end)
 
     return

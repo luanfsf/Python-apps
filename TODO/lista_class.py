@@ -1,13 +1,15 @@
+'''Classe lista, uma lista e métodos básicos para sua manipulação.
+'''
+
 class Lista:
-    '''Classe lista, uma lista e métodos básicos para sua manipulação.
-    '''
 
     def __init__(self):
         pass
 
     def readDB(self):
-        '''Lê o arquivo todos.db e separa cada linha como uma tarefa cada
-        linha contém uma tarefa e uma prioridade, o separador é "**".
+        '''Lê o arquivo todos.db e adiciona cada tupla como uma tarefa em,
+        uma lista cada linha contém uma tarefa e uma prioridade, o separador
+        utilizado é "**".
         '''
 
         self.lista = []
@@ -31,28 +33,32 @@ class Lista:
         return
 
     def addTask(self):
-        '''Adicionar elemento na lista desde que não ultrapasse o limite de
-            60 caracteres somente para manter uma formatação correta.
+        '''Cria uma tupla contendo uma tarefa e sua respectiva prioridade,
+        os sequintes métodos da própria classeserão chamados para realizar
+        essa tarefa: self.Wrapper() e self.Priority() .
         '''
 
         self.lista.append( [ self.Wrapper(), self.Priority()] )
 
     def Wrapper(self, max=60):
-        '''Input de no máximo max characteres para adicionar a lista.
+        '''Função que irá pedir a tarefa, caso a mensagem ultrapasse o máximo
+        max de characteres ou nada tenha sido digitado, a função self.Wrapper()
+        será novamente invocada.
         '''
 
         task = input( )
 
-        if ( len(task) > max ):
+        if ( (len(task) > max) or (task == "" ) ):
             task = self.Wrapper()
 
         return task
 
     def Priority(self):
-        '''Input inteiro [1,2,3] para definir a prioridade das tarefas.
+        '''Função que iŕa pedir um inteiro emtre 1 e 3 para definir a
+        prioridade da respectiva tarefa.
         '''
 
-        prioridades = [1,2,3]
+        prioridades = range(1,4)
 
         pri = int(input())
 
@@ -70,8 +76,7 @@ class Lista:
         return
 
     def removeTask(self, indice):
-        '''Pede o indice do item que deseja remover, range(0, len(self.list))
-        Exibe o item e pergunta se deseja mesmo excluir.
+        '''Remove o item no indice que desejado.
         '''
 
         del self.lista[ indice -1 ]
@@ -105,11 +110,3 @@ class Lista:
             return 1
 
         return 0
-
-    def printDB(self): # Método somente para testes, ver itens por linha e len()
-        for i in range(len(self.lista)):
-            for j in range(len(self.lista[i])):
-                print(self.lista[i][j] , end=",")
-                print('len = '+ str( len(self.lista[i][j]) ), end="**")
-            print("")
-        return

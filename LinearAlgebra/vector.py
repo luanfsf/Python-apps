@@ -25,10 +25,11 @@ class Vector(object):
             self.coordinates = [x+y for x,y in zip(self.coordinates,vetor)]
         return
         
-    def subtraction(self):
+    def subtraction(self,vetor):
         if ( len(self.coordinates) == len(vetor) ):
             self.coordinates = [x-y for x,y in zip(self.coordinates,vetor)]
         return
         
-    def scalarMultiplication(self):
-        pass
+    def scalarMultiplication(self,scalar):
+        self.coordinates = [x*scalar for x in (self.coordinates)]
+        return

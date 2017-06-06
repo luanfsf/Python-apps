@@ -26,7 +26,9 @@ class Vector(object):
         return
         
     def subtraction(self):
-        pass
+        if ( len(self.coordinates) == len(vetor) ):
+            self.coordinates = [x-y for x,y in zip(self.coordinates,vetor)]
+        return
         
     def scalarMultiplication(self):
         pass

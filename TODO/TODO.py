@@ -9,10 +9,10 @@ def main():
 
     Ler o arquivo todos.db e adicionar linhas a lista da instancia
 
-    Exibir status 0 a 100
-    Exibir a lista principal
+    Exibir a barra de uso e a lista principal
     Exibir menu de acoes (acoes sao metodos da classe lista, exceto sair)
     Executar tarefas do prompt
+
     Salvar lista '''
 
     Todos = LC.Lista()

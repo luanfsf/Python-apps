@@ -1,3 +1,4 @@
+from math import hypot, sqrt
 class Vector(object):
     def __init__(self, coordinates):
         try:
@@ -24,12 +25,18 @@ class Vector(object):
         if ( len(self.coordinates) == len(vetor) ):
             self.coordinates = [x+y for x,y in zip(self.coordinates,vetor)]
         return
-        
+
     def subtraction(self,vetor):
         if ( len(self.coordinates) == len(vetor) ):
             self.coordinates = [x-y for x,y in zip(self.coordinates,vetor)]
         return
-        
+
     def scalarMultiplication(self,scalar):
         self.coordinates = [x*scalar for x in (self.coordinates)]
         return
+
+    def magnitude(self):
+        return sqrt(sum( [x**2 for x in self.coordinates] ))
+
+    def direction():
+        pass

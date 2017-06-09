@@ -38,5 +38,5 @@ class Vector(object):
     def magnitude(self):
         return sqrt(sum( [x**2 for x in self.coordinates] ))
 
-    def direction():
-        pass
+    def normalization(self):
+        return [x/self.magnitude() for x in self.coordinates]
